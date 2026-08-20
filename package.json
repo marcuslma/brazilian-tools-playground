@@ -1,0 +1,21 @@
+{
+  "name": "brazilian-tools-playground",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "format": "prettier --write \"**/*.{json,md,ts,css,html}\"",
+    "format:check": "prettier --check \"**/*.{json,md,ts,css,html}\"",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.6",
+    "typescript": "~6.0.2",
+    "vite": "^8.2.0"
+  },
+  "dependencies": {
+    "brazilian-tools": "github:marcuslma/brazilian-tools#main"
+  }
+}
