@@ -25,7 +25,6 @@ import {
   isBrazilianState,
   lookupCEP,
   lookupCEPs,
-  normalizeBRL,
   normalizeCEP,
   normalizeCNPJ,
   normalizeCNH,
@@ -477,15 +476,12 @@ function App() {
           index="08"
           tag="DINHEIRO"
           title="Valores em reais"
-          description="Normalize, formate e faça parsing de valores BRL."
+          description="Formate valores e faça parsing de texto em reais."
           accent="accent-gold"
           tool={brl}
           control={<TextInput tool={brl} id="brl-input" placeholder="R$ 1.234,56" />}
         >
-          <button onClick={() => void brl.execute(() => normalizeBRL(brl.input))}>
-            Normalizar
-          </button>
-          <button onClick={() => void brl.execute(() => formatBRL(normalizeBRL(brl.input)))}>
+          <button onClick={() => void brl.execute(() => formatBRL(parseBRL(brl.input)))}>
             Formatar
           </button>
           <button onClick={() => void brl.execute(() => parseBRL(brl.input))}>Parsear</button>
