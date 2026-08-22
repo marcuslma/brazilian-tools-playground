@@ -6,16 +6,20 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "format": "prettier --write \"**/*.{json,md,ts,css,html}\"",
-    "format:check": "prettier --check \"**/*.{json,md,ts,css,html}\"",
+    "format": "prettier --write \"**/*.{json,md,ts,tsx,css,html}\"",
+    "format:check": "prettier --check \"**/*.{json,md,ts,tsx,css,html}\"",
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
     "prettier": "^3.9.6",
     "typescript": "~6.0.2",
     "vite": "^8.2.0"
   },
   "dependencies": {
-    "brazilian-tools": "github:marcuslma/brazilian-tools#main"
+    "brazilian-tools": "github:marcuslma/brazilian-tools#main",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
   }
 }

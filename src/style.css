@@ -17,6 +17,11 @@
   --cyan: #62d9d3;
   --violet: #a994ff;
   --green: #9bdc91;
+  --orange: #f2a65a;
+  --blue: #78a9ff;
+  --red: #f18b93;
+  --gold: #e7c56b;
+  --lime: #c2e77f;
 }
 
 * {
@@ -119,41 +124,38 @@ h1 em {
   font-size: 11px;
 }
 
-.result-panel {
-  min-height: 156px;
-  margin: 28px 0;
-  padding: 20px 24px;
+.card-output {
+  min-height: 92px;
+  margin-top: 18px;
+  padding: 12px;
   border: 1px solid var(--line);
-  border-radius: 3px;
+  border-radius: 2px;
   background: #101013;
-  box-shadow: inset 0 1px 0 #ffffff06;
 }
-.result-heading {
+.output-heading {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-}
-.status {
+  color: var(--muted);
   font-family: 'DM Mono', monospace;
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 0.1em;
 }
-.status.neutral {
-  color: var(--muted);
-}
-.status.success {
+.card-output.success .output-heading span:last-child {
   color: var(--green);
 }
-.status.error {
+.card-output.error .output-heading span:last-child {
   color: #f18b93;
 }
-pre {
-  min-height: 78px;
-  margin: 22px 0 0;
+.card-output pre {
+  min-height: 36px;
+  max-height: 150px;
+  margin: 10px 0 0;
   color: var(--soft);
-  font-size: 13px;
-  line-height: 1.6;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  line-height: 1.5;
   white-space: pre-wrap;
+  overflow: auto;
   overflow-wrap: anywhere;
 }
 
@@ -191,6 +193,21 @@ pre {
 }
 .accent-green {
   --accent: var(--green);
+}
+.accent-orange {
+  --accent: var(--orange);
+}
+.accent-blue {
+  --accent: var(--blue);
+}
+.accent-red {
+  --accent: var(--red);
+}
+.accent-gold {
+  --accent: var(--gold);
+}
+.accent-lime {
+  --accent: var(--lime);
 }
 .card-top {
   display: flex;
@@ -281,7 +298,14 @@ button.secondary {
 }
 .wide-card {
   grid-column: 1 / -1;
-  min-height: 170px;
+  min-height: 220px;
+}
+.tool-card small {
+  display: block;
+  margin-top: 12px;
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
 }
 .wide-content {
   display: grid;
@@ -312,7 +336,7 @@ footer {
   text-transform: uppercase;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 900px) {
   .shell {
     width: min(100% - 28px, 560px);
     padding-top: 26px;
@@ -341,5 +365,14 @@ footer {
   footer {
     gap: 12px;
     flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .tool-card {
+    padding: 18px;
+  }
+  .input-line {
+    grid-template-columns: 1fr;
   }
 }

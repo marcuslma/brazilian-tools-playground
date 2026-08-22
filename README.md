@@ -24,4 +24,4 @@ npm run format:check
 npm run build
 ```
 
-O playground é ESM e inclui testes interativos para CPF, CNPJ, RG, telefone brasileiro e consulta de CEP.
+O playground é uma aplicação React + Vite em ESM e cobre interativamente os 10 domínios públicos da biblioteca: CPF, CNPJ, RG, telefone, PIS, CNH, placas, valores em reais, estados/regiões e CEP. Cada cartão mantém seu próprio input, status e output, sem painel global. Além dos geradores existentes, o telefone permite gerar celulares e o cartão de placas permite gerar modelos antigo e Mercosul. Toda geração também atualiza automaticamente o input do cartão correspondente. O layout usa duas colunas em telas amplas e uma coluna até 900px para preservar a legibilidade dos controles e outputs.
