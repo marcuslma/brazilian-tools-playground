@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './style.css';
 import {
@@ -48,6 +48,325 @@ import {
   validateRG,
 } from 'brazilian-tools';
 
+type Locale = 'pt-BR' | 'en' | 'es';
+type Theme = 'dark' | 'light';
+
+type MessageKey =
+  | 'waitingAction'
+  | 'lookingUp'
+  | 'error'
+  | 'ok'
+  | 'waiting'
+  | 'waitingResponse'
+  | 'allFeatures'
+  | 'noGuesswork'
+  | 'heroCopy'
+  | 'status'
+  | 'localPackage'
+  | 'document'
+  | 'business'
+  | 'identity'
+  | 'phone'
+  | 'work'
+  | 'driverLicense'
+  | 'vehicle'
+  | 'money'
+  | 'states'
+  | 'network'
+  | 'validationDescription'
+  | 'cnpjDescription'
+  | 'numeric'
+  | 'alpha'
+  | 'rgDescription'
+  | 'structural'
+  | 'algorithm'
+  | 'unsupported'
+  | 'rgState'
+  | 'validate'
+  | 'normalize'
+  | 'format'
+  | 'generate'
+  | 'supportedStates'
+  | 'includeState'
+  | 'phoneDescription'
+  | 'formatInternational'
+  | 'parse'
+  | 'supportedDDDs'
+  | 'generateMobile'
+  | 'algorithmicDescription'
+  | 'plateDescription'
+  | 'generateOld'
+  | 'generateMercosur'
+  | 'brlValues'
+  | 'brlDescription'
+  | 'statesDescription'
+  | 'region'
+  | 'allRegions'
+  | 'findState'
+  | 'isState'
+  | 'listRegion'
+  | 'catalog'
+  | 'cepDescription'
+  | 'multipleCep'
+  | 'cepProvider'
+  | 'autoFallback'
+  | 'includeRaw'
+  | 'batchNote'
+  | 'lookup'
+  | 'lookupBatch'
+  | 'language'
+  | 'theme'
+  | 'light'
+  | 'dark'
+  | 'domains'
+  | 'phoneTitle'
+  | 'plateTitle'
+  | 'cnpjType'
+  | 'platePlaceholder'
+  | 'statePlaceholder'
+  | 'footerLibrary'
+  | 'footerStack'
+  | 'output';
+
+const messages: Record<Locale, Record<MessageKey, string>> = {
+  'pt-BR': {
+    waitingAction: 'Aguardando ação.',
+    output: 'SAÍDA',
+    lookingUp: 'CONSULTANDO…',
+    error: 'ERRO',
+    ok: 'OK',
+    waiting: 'AGUARDANDO',
+    waitingResponse: 'Aguardando resposta…',
+    allFeatures: 'Todos os recursos,',
+    noGuesswork: 'sem achismo.',
+    heroCopy:
+      'Um laboratório local em React para explorar todos os domínios públicos da biblioteca: validação, normalização, formatação, geração, parsing, catálogo e consultas de CEP.',
+    status: 'STATUS',
+    localPackage: 'REACT · PACOTE LOCAL',
+    document: 'DOCUMENTO',
+    business: 'EMPRESA',
+    cnpjType: 'Tipo de CNPJ',
+    identity: 'IDENTIDADE',
+    phone: 'TELEFONE',
+    phoneTitle: 'Telefone brasileiro',
+    work: 'TRABALHO',
+    driverLicense: 'HABILITAÇÃO',
+    vehicle: 'VEÍCULO',
+    plateTitle: 'Placa',
+    money: 'DINHEIRO',
+    states: 'ESTADOS',
+    network: 'REDE',
+    validationDescription: 'Validação, normalização, formatação e geração.',
+    cnpjDescription: 'Formato numérico e novo formato alfanumérico.',
+    numeric: 'Numérico',
+    alpha: 'Alfa',
+    rgDescription: 'SP com algoritmo; outros formatos, estruturalmente.',
+    structural: 'Estrutural',
+    algorithm: 'algoritmo',
+    unsupported: 'não suportado',
+    rgState: 'UF do RG',
+    validate: 'Validar',
+    normalize: 'Normalizar',
+    format: 'Formatar',
+    generate: 'Gerar',
+    supportedStates: 'UFs suportadas',
+    includeState: 'incluir UF ao gerar',
+    phoneDescription: 'Fixos, celulares, DDD e parsing E.164.',
+    formatInternational: 'formatar internacional',
+    parse: 'Parsear',
+    supportedDDDs: 'DDDs suportados',
+    generateMobile: 'Gerar celular',
+    algorithmicDescription: 'Validação algorítmica, normalização, formatação e geração.',
+    plateDescription: 'Placa antiga e Mercosul, incluindo parsing do tipo.',
+    platePlaceholder: 'ABC-1234 ou ABC1D23',
+    generateOld: 'Gerar antiga',
+    generateMercosur: 'Gerar Mercosul',
+    brlValues: 'Valores em reais',
+    brlDescription: 'Formate valores e faça parsing de texto em reais.',
+    statesDescription: 'Catálogo de UFs, capitais, regiões e códigos IBGE.',
+    statePlaceholder: 'SP ou São Paulo',
+    region: 'Região',
+    allRegions: 'Todas as regiões',
+    findState: 'Buscar UF',
+    isState: 'É UF?',
+    listRegion: 'Listar região',
+    catalog: 'Catálogo',
+    cepDescription: 'Valide, normalize, formate, consulte um CEP ou teste consultas em lote.',
+    multipleCep: 'ou vários separados por vírgula',
+    cepProvider: 'Provedor do CEP',
+    autoFallback: 'Auto · fallback',
+    includeRaw: 'incluir resposta raw',
+    batchNote: 'Para lote, separe os CEPs por vírgula ou quebra de linha.',
+    lookup: 'Consultar',
+    lookupBatch: 'Consultar lote',
+    language: 'Idioma',
+    theme: 'Tema',
+    light: 'Claro',
+    dark: 'Escuro',
+    domains: 'domínios',
+    footerLibrary: 'brazilian-tools playground · React · 10 domínios',
+    footerStack: 'TypeScript · Vite · ESM',
+  },
+  en: {
+    waitingAction: 'Waiting for action.',
+    output: 'OUTPUT',
+    lookingUp: 'LOOKING UP…',
+    error: 'ERROR',
+    ok: 'OK',
+    waiting: 'WAITING',
+    waitingResponse: 'Waiting for response…',
+    allFeatures: 'All features,',
+    noGuesswork: 'no guesswork.',
+    heroCopy:
+      'A local React lab for exploring every public library domain: validation, normalization, formatting, generation, parsing, catalog browsing, and CEP lookups.',
+    status: 'STATUS',
+    localPackage: 'REACT · LOCAL PACKAGE',
+    document: 'DOCUMENT',
+    business: 'BUSINESS',
+    cnpjType: 'CNPJ type',
+    identity: 'IDENTITY',
+    phone: 'PHONE',
+    phoneTitle: 'Brazilian Phone',
+    work: 'WORK',
+    driverLicense: 'DRIVER LICENSE',
+    vehicle: 'VEHICLE',
+    plateTitle: 'License plate',
+    money: 'MONEY',
+    states: 'STATES',
+    network: 'NETWORK',
+    validationDescription: 'Validation, normalization, formatting, and generation.',
+    cnpjDescription: 'Numeric and new alphanumeric formats.',
+    numeric: 'Numeric',
+    alpha: 'Alpha',
+    rgDescription: 'SP with an algorithm; other formats structurally.',
+    structural: 'Structural',
+    algorithm: 'algorithm',
+    unsupported: 'unsupported',
+    rgState: 'RG state',
+    validate: 'Validate',
+    normalize: 'Normalize',
+    format: 'Format',
+    generate: 'Generate',
+    supportedStates: 'Supported states',
+    includeState: 'include state when generating',
+    phoneDescription: 'Landlines, mobile numbers, DDD, and E.164 parsing.',
+    formatInternational: 'format internationally',
+    parse: 'Parse',
+    supportedDDDs: 'Supported DDDs',
+    generateMobile: 'Generate mobile',
+    algorithmicDescription: 'Algorithmic validation, normalization, formatting, and generation.',
+    plateDescription: 'Old and Mercosur plates, including type parsing.',
+    platePlaceholder: 'ABC-1234 or ABC1D23',
+    generateOld: 'Generate old',
+    generateMercosur: 'Generate Mercosur',
+    brlValues: 'BRL Values',
+    brlDescription: 'Format values and parse BRL text.',
+    statesDescription: 'Catalog of states, capitals, regions, and IBGE codes.',
+    statePlaceholder: 'SP or São Paulo',
+    region: 'Region',
+    allRegions: 'All regions',
+    findState: 'Find state',
+    isState: 'Is a state?',
+    listRegion: 'List region',
+    catalog: 'Catalog',
+    cepDescription: 'Validate, normalize, format, look up a CEP, or test batch lookups.',
+    multipleCep: 'or multiple values separated by commas',
+    cepProvider: 'CEP provider',
+    autoFallback: 'Auto · fallback',
+    includeRaw: 'include raw response',
+    batchNote: 'For batch lookups, separate CEPs with commas or line breaks.',
+    lookup: 'Look up',
+    lookupBatch: 'Look up batch',
+    language: 'Language',
+    theme: 'Theme',
+    light: 'Light',
+    dark: 'Dark',
+    domains: 'domains',
+    footerLibrary: 'brazilian-tools playground · React · 10 domains',
+    footerStack: 'TypeScript · Vite · ESM',
+  },
+  es: {
+    waitingAction: 'Esperando una acción.',
+    output: 'SALIDA',
+    lookingUp: 'CONSULTANDO…',
+    error: 'ERROR',
+    ok: 'OK',
+    waiting: 'ESPERANDO',
+    waitingResponse: 'Esperando respuesta…',
+    allFeatures: 'Todas las funciones,',
+    noGuesswork: 'sin adivinanzas.',
+    heroCopy:
+      'Un laboratorio local en React para explorar todos los dominios públicos de la biblioteca: validación, normalización, formato, generación, análisis, catálogo y consultas de CEP.',
+    status: 'ESTADO',
+    localPackage: 'REACT · PAQUETE LOCAL',
+    document: 'DOCUMENTO',
+    business: 'EMPRESA',
+    cnpjType: 'Tipo de CNPJ',
+    identity: 'IDENTIDAD',
+    phone: 'TELÉFONO',
+    phoneTitle: 'Teléfono brasileño',
+    work: 'TRABAJO',
+    driverLicense: 'LICENCIA DE CONDUCIR',
+    vehicle: 'VEHÍCULO',
+    plateTitle: 'Matrícula',
+    money: 'DINERO',
+    states: 'ESTADOS',
+    network: 'RED',
+    validationDescription: 'Validación, normalización, formato y generación.',
+    cnpjDescription: 'Formato numérico y nuevo formato alfanumérico.',
+    numeric: 'Numérico',
+    alpha: 'Alfa',
+    rgDescription: 'SP con algoritmo; otros formatos estructuralmente.',
+    structural: 'Estructural',
+    algorithm: 'algoritmo',
+    unsupported: 'no compatible',
+    rgState: 'Estado del RG',
+    validate: 'Validar',
+    normalize: 'Normalizar',
+    format: 'Formatear',
+    generate: 'Generar',
+    supportedStates: 'Estados compatibles',
+    includeState: 'incluir estado al generar',
+    phoneDescription: 'Líneas fijas, móviles, DDD y análisis E.164.',
+    formatInternational: 'formatear internacionalmente',
+    parse: 'Analizar',
+    supportedDDDs: 'DDDs compatibles',
+    generateMobile: 'Generar móvil',
+    algorithmicDescription: 'Validación algorítmica, normalización, formato y generación.',
+    plateDescription: 'Matrículas antiguas y Mercosur, incluido el análisis del tipo.',
+    platePlaceholder: 'ABC-1234 o ABC1D23',
+    generateOld: 'Generar antigua',
+    generateMercosur: 'Generar Mercosur',
+    brlValues: 'Valores en BRL',
+    brlDescription: 'Formatea valores y analiza texto en BRL.',
+    statesDescription: 'Catálogo de estados, capitales, regiones y códigos IBGE.',
+    statePlaceholder: 'SP o São Paulo',
+    region: 'Región',
+    allRegions: 'Todas las regiones',
+    findState: 'Buscar estado',
+    isState: '¿Es un estado?',
+    listRegion: 'Listar región',
+    catalog: 'Catálogo',
+    cepDescription: 'Valida, normaliza, formatea, consulta un CEP o prueba consultas por lote.',
+    multipleCep: 'o varios valores separados por comas',
+    cepProvider: 'Proveedor de CEP',
+    autoFallback: 'Automático · fallback',
+    includeRaw: 'incluir respuesta raw',
+    batchNote: 'Para consultas por lote, separa los CEPs con comas o saltos de línea.',
+    lookup: 'Consultar',
+    lookupBatch: 'Consultar lote',
+    language: 'Idioma',
+    theme: 'Tema',
+    light: 'Claro',
+    dark: 'Oscuro',
+    domains: 'dominios',
+    footerLibrary: 'brazilian-tools playground · React · 10 dominios',
+    footerStack: 'TypeScript · Vite · ESM',
+  },
+};
+
+type Translate = (key: MessageKey) => string;
+
 type ResultTone = 'neutral' | 'success' | 'error';
 type Action = () => unknown | Promise<unknown>;
 
@@ -62,7 +381,7 @@ type ToolState = {
 
 function useToolState(initialInput = ''): ToolState {
   const [input, setInput] = useState(initialInput);
-  const [output, setOutput] = useState<unknown>('Aguardando ação.');
+  const [output, setOutput] = useState<unknown>(null);
   const [tone, setTone] = useState<ResultTone>('neutral');
   const [busy, setBusy] = useState(false);
 
@@ -103,6 +422,7 @@ function ToolCard({
   control,
   children,
   note,
+  t,
 }: {
   index: string;
   tag: string;
@@ -113,6 +433,7 @@ function ToolCard({
   control: ReactNode;
   children: ReactNode;
   note?: string;
+  t: Translate;
 }) {
   return (
     <article className={`tool-card ${accent}`}>
@@ -127,18 +448,24 @@ function ToolCard({
       {note && <small>{note}</small>}
       <div className={`card-output ${tool.tone}`} aria-live="polite">
         <div className="output-heading">
-          <span>OUTPUT</span>
+          <span>{t('output')}</span>
           <span>
             {tool.busy
-              ? 'CONSULTANDO…'
+              ? t('lookingUp')
               : tool.tone === 'error'
-                ? 'ERRO'
+                ? t('error')
                 : tool.tone === 'success'
-                  ? 'OK'
-                  : 'AGUARDANDO'}
+                  ? t('ok')
+                  : t('waiting')}
           </span>
         </div>
-        <pre>{tool.busy ? 'Aguardando resposta…' : displayValue(tool.output)}</pre>
+        <pre>
+          {tool.busy
+            ? t('waitingResponse')
+            : tool.output === null
+              ? t('waitingAction')
+              : displayValue(tool.output)}
+        </pre>
       </div>
     </article>
   );
@@ -182,6 +509,26 @@ function App() {
   const [stateRegion, setStateRegion] = useState('');
   const [cepProvider, setCepProvider] = useState<'auto' | 'brasilapi' | 'viacep'>('auto');
   const [cepRaw, setCepRaw] = useState(false);
+  const [locale, setLocale] = useState<Locale>(() => {
+    const stored = window.localStorage.getItem('brazilian-tools-locale');
+    if (stored === 'en' || stored === 'es' || stored === 'pt-BR') return stored;
+    const browserLocale = navigator.language.toLowerCase();
+    if (browserLocale.startsWith('en')) return 'en';
+    if (browserLocale.startsWith('es')) return 'es';
+    return 'pt-BR';
+  });
+  const [theme, setTheme] = useState<Theme>(() => {
+    const stored = window.localStorage.getItem('brazilian-tools-theme');
+    return stored === 'light' ? 'light' : 'dark';
+  });
+  const t: Translate = (key) => messages[locale][key];
+
+  useEffect(() => {
+    document.documentElement.lang = locale;
+    document.documentElement.dataset.theme = theme;
+    window.localStorage.setItem('brazilian-tools-locale', locale);
+    window.localStorage.setItem('brazilian-tools-theme', theme);
+  }, [locale, theme]);
 
   return (
     <main className="shell">
@@ -189,21 +536,34 @@ function App() {
         <div className="eyebrow">
           <span className="pulse" /> brazilian-tools / playground
         </div>
+        <div className="top-controls">
+          <label>
+            <span>{t('language')}</span>
+            <select value={locale} onChange={(event) => setLocale(event.target.value as Locale)}>
+              <option value="pt-BR">Português</option>
+              <option value="en">English</option>
+              <option value="es">Español</option>
+            </select>
+          </label>
+          <button
+            className="theme-toggle"
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+          >
+            {theme === 'dark' ? `☀ ${t('light')}` : `☾ ${t('dark')}`}
+          </button>
+        </div>
         <div className="hero-grid">
           <div>
             <h1>
-              Todos os recursos,
+              {t('allFeatures')}
               <br />
-              <em>sem achismo.</em>
+              <em>{t('noGuesswork')}</em>
             </h1>
-            <p className="hero-copy">
-              Um laboratório local em React para explorar todos os domínios públicos da biblioteca:
-              validação, normalização, formatação, geração, parsing, catálogo e consultas de CEP.
-            </p>
+            <p className="hero-copy">{t('heroCopy')}</p>
           </div>
           <div className="hero-note">
-            <span className="note-label">STATUS</span>
-            <strong>REACT · LOCAL PACKAGE</strong>
+            <span className="note-label">{t('status')}</span>
+            <strong>{t('localPackage')}</strong>
             <code>file:../brazilian-tools</code>
           </div>
         </div>
@@ -212,78 +572,89 @@ function App() {
       <section className="tool-grid">
         <ToolCard
           index="01"
-          tag="DOCUMENTO"
+          tag={t('document')}
           title="CPF"
-          description="Validação, normalização, formatação e geração."
+          description={t('validationDescription')}
           accent="accent-yellow"
           tool={cpf}
+          t={t}
           control={<TextInput tool={cpf} id="cpf-input" placeholder="529.982.247-25" />}
         >
-          <button onClick={() => void cpf.execute(() => validateCPF(cpf.input))}>Validar</button>
-          <button onClick={() => void cpf.execute(() => normalizeCPF(cpf.input))}>
-            Normalizar
+          <button onClick={() => void cpf.execute(() => validateCPF(cpf.input))}>
+            {t('validate')}
           </button>
-          <button onClick={() => void cpf.execute(() => formatCPF(cpf.input))}>Formatar</button>
+          <button onClick={() => void cpf.execute(() => normalizeCPF(cpf.input))}>
+            {t('normalize')}
+          </button>
+          <button onClick={() => void cpf.execute(() => formatCPF(cpf.input))}>
+            {t('format')}
+          </button>
           <button
             className="secondary"
             onClick={() => void cpf.execute(() => generateCPF({ formatted: true }), true)}
           >
-            Gerar
+            {t('generate')}
           </button>
         </ToolCard>
         <ToolCard
           index="02"
-          tag="EMPRESA"
+          tag={t('business')}
           title="CNPJ"
-          description="Formato numérico e novo formato alfanumérico."
+          description={t('cnpjDescription')}
           accent="accent-pink"
           tool={cnpj}
+          t={t}
           control={
             <div className="input-line">
               <TextInput tool={cnpj} id="cnpj-input" placeholder="04.252.011/0001-10" />
               <select
                 value={cnpjKind}
                 onChange={(event) => setCnpjKind(event.target.value as 'numeric' | 'alphanumeric')}
-                aria-label="Tipo de CNPJ"
+                aria-label={t('cnpjType')}
               >
-                <option value="numeric">Numérico</option>
-                <option value="alphanumeric">Alfa</option>
+                <option value="numeric">{t('numeric')}</option>
+                <option value="alphanumeric">{t('alpha')}</option>
               </select>
             </div>
           }
         >
-          <button onClick={() => void cnpj.execute(() => validateCNPJ(cnpj.input))}>Validar</button>
-          <button onClick={() => void cnpj.execute(() => normalizeCNPJ(cnpj.input))}>
-            Normalizar
+          <button onClick={() => void cnpj.execute(() => validateCNPJ(cnpj.input))}>
+            {t('validate')}
           </button>
-          <button onClick={() => void cnpj.execute(() => formatCNPJ(cnpj.input))}>Formatar</button>
+          <button onClick={() => void cnpj.execute(() => normalizeCNPJ(cnpj.input))}>
+            {t('normalize')}
+          </button>
+          <button onClick={() => void cnpj.execute(() => formatCNPJ(cnpj.input))}>
+            {t('format')}
+          </button>
           <button
             className="secondary"
             onClick={() =>
               void cnpj.execute(() => generateCNPJ({ kind: cnpjKind, formatted: true }), true)
             }
           >
-            Gerar
+            {t('generate')}
           </button>
         </ToolCard>
         <ToolCard
           index="03"
-          tag="IDENTIDADE"
+          tag={t('identity')}
           title="RG"
-          description="SP com algoritmo; outros formatos, estruturalmente."
+          description={t('rgDescription')}
           accent="accent-cyan"
           tool={rg}
+          t={t}
           control={
             <div className="input-line">
               <TextInput tool={rg} id="rg-input" placeholder="12.345.678-2" />
               <select
                 value={rgState}
                 onChange={(event) => setRgState(event.target.value)}
-                aria-label="UF do RG"
+                aria-label={t('rgState')}
               >
-                <option value="">Estrutural</option>
-                <option value="SP">SP / algoritmo</option>
-                <option value="RJ">RJ / não suportado</option>
+                <option value="">{t('structural')}</option>
+                <option value="SP">SP / {t('algorithm')}</option>
+                <option value="RJ">RJ / {t('unsupported')}</option>
               </select>
             </div>
           }
@@ -293,13 +664,13 @@ function App() {
               void rg.execute(() => validateRG(rg.input, rgState ? { state: rgState } : {}))
             }
           >
-            Validar
+            {t('validate')}
           </button>
           <button onClick={() => void rg.execute(() => normalizeRG(rg.input, { state: 'SP' }))}>
-            Normalizar
+            {t('normalize')}
           </button>
           <button onClick={() => void rg.execute(() => formatRG(rg.input, { state: 'SP' }))}>
-            Formatar
+            {t('format')}
           </button>
           <button
             className="secondary"
@@ -310,10 +681,10 @@ function App() {
               }, true)
             }
           >
-            Gerar
+            {t('generate')}
           </button>
           <button className="secondary" onClick={() => void rg.execute(() => SUPPORTED_RG_STATES)}>
-            UFs suportadas
+            {t('supportedStates')}
           </button>
           <label className="check-label">
             <input
@@ -321,16 +692,17 @@ function App() {
               checked={includeRGState}
               onChange={(event) => setIncludeRGState(event.target.checked)}
             />{' '}
-            incluir UF ao gerar
+            {t('includeState')}
           </label>
         </ToolCard>
         <ToolCard
           index="04"
-          tag="TELEFONE"
-          title="Telefone BR"
-          description="Fixos, celulares, DDD e parsing E.164."
+          tag={t('phone')}
+          title={t('phoneTitle')}
+          description={t('phoneDescription')}
           accent="accent-violet"
           tool={phone}
+          t={t}
           control={
             <>
               <TextInput tool={phone} id="phone-input" placeholder="+55 (11) 98765-4321" />
@@ -340,16 +712,16 @@ function App() {
                   checked={internationalPhone}
                   onChange={(event) => setInternationalPhone(event.target.checked)}
                 />{' '}
-                formatar internacional
+                {t('formatInternational')}
               </label>
             </>
           }
         >
           <button onClick={() => void phone.execute(() => validatePhoneBR(phone.input))}>
-            Validar
+            {t('validate')}
           </button>
           <button onClick={() => void phone.execute(() => normalizePhoneBR(phone.input))}>
-            Normalizar
+            {t('normalize')}
           </button>
           <button
             onClick={() =>
@@ -358,19 +730,19 @@ function App() {
               )
             }
           >
-            Formatar
+            {t('format')}
           </button>
           <button
             className="secondary"
             onClick={() => void phone.execute(() => parsePhoneBR(phone.input))}
           >
-            Parsear
+            {t('parse')}
           </button>
           <button
             className="secondary"
             onClick={() => void phone.execute(() => SUPPORTED_PHONE_DDDS)}
           >
-            DDDs suportados
+            {t('supportedDDDs')}
           </button>
           <button
             className="secondary"
@@ -386,74 +758,85 @@ function App() {
               )
             }
           >
-            Gerar celular
+            {t('generateMobile')}
           </button>
         </ToolCard>
         <ToolCard
           index="05"
-          tag="TRABALHO"
+          tag={t('work')}
           title="PIS / PASEP / NIT"
-          description="Validação, normalização, formatação e geração."
+          description={t('validationDescription')}
           accent="accent-orange"
           tool={pis}
+          t={t}
           control={<TextInput tool={pis} id="pis-input" placeholder="120.4456.789-5" />}
         >
-          <button onClick={() => void pis.execute(() => validatePIS(pis.input))}>Validar</button>
-          <button onClick={() => void pis.execute(() => normalizePIS(pis.input))}>
-            Normalizar
+          <button onClick={() => void pis.execute(() => validatePIS(pis.input))}>
+            {t('validate')}
           </button>
-          <button onClick={() => void pis.execute(() => formatPIS(pis.input))}>Formatar</button>
+          <button onClick={() => void pis.execute(() => normalizePIS(pis.input))}>
+            {t('normalize')}
+          </button>
+          <button onClick={() => void pis.execute(() => formatPIS(pis.input))}>
+            {t('format')}
+          </button>
           <button
             className="secondary"
             onClick={() => void pis.execute(() => generatePIS({ formatted: true }), true)}
           >
-            Gerar
+            {t('generate')}
           </button>
         </ToolCard>
         <ToolCard
           index="06"
-          tag="HABILITAÇÃO"
+          tag={t('driverLicense')}
           title="CNH"
-          description="Validação algorítmica, normalização, formatação e geração."
+          description={t('algorithmicDescription')}
           accent="accent-blue"
           tool={cnh}
+          t={t}
           control={<TextInput tool={cnh} id="cnh-input" placeholder="01234567890" />}
         >
-          <button onClick={() => void cnh.execute(() => validateCNH(cnh.input))}>Validar</button>
-          <button onClick={() => void cnh.execute(() => normalizeCNH(cnh.input))}>
-            Normalizar
+          <button onClick={() => void cnh.execute(() => validateCNH(cnh.input))}>
+            {t('validate')}
           </button>
-          <button onClick={() => void cnh.execute(() => formatCNH(cnh.input))}>Formatar</button>
+          <button onClick={() => void cnh.execute(() => normalizeCNH(cnh.input))}>
+            {t('normalize')}
+          </button>
+          <button onClick={() => void cnh.execute(() => formatCNH(cnh.input))}>
+            {t('format')}
+          </button>
           <button
             className="secondary"
             onClick={() => void cnh.execute(() => generateCNH({ formatted: true }), true)}
           >
-            Gerar
+            {t('generate')}
           </button>
         </ToolCard>
         <ToolCard
           index="07"
-          tag="VEÍCULO"
-          title="Placa"
-          description="Placa antiga e Mercosul, incluindo parsing do tipo."
+          tag={t('vehicle')}
+          title={t('plateTitle')}
+          description={t('plateDescription')}
           accent="accent-red"
           tool={plate}
-          control={<TextInput tool={plate} id="plate-input" placeholder="ABC-1234 ou ABC1D23" />}
+          t={t}
+          control={<TextInput tool={plate} id="plate-input" placeholder={t('platePlaceholder')} />}
         >
           <button onClick={() => void plate.execute(() => validateLicensePlate(plate.input))}>
-            Validar
+            {t('validate')}
           </button>
           <button onClick={() => void plate.execute(() => normalizeLicensePlate(plate.input))}>
-            Normalizar
+            {t('normalize')}
           </button>
           <button onClick={() => void plate.execute(() => formatLicensePlate(plate.input))}>
-            Formatar
+            {t('format')}
           </button>
           <button
             className="secondary"
             onClick={() => void plate.execute(() => parseLicensePlate(plate.input))}
           >
-            Parsear
+            {t('parse')}
           </button>
           <button
             className="secondary"
@@ -461,7 +844,7 @@ function App() {
               void plate.execute(() => generateLicensePlate({ kind: 'old', formatted: true }), true)
             }
           >
-            Gerar antiga
+            {t('generateOld')}
           </button>
           <button
             className="secondary"
@@ -469,39 +852,41 @@ function App() {
               void plate.execute(() => generateLicensePlate({ kind: 'mercosul' }), true)
             }
           >
-            Gerar Mercosul
+            {t('generateMercosur')}
           </button>
         </ToolCard>
         <ToolCard
           index="08"
-          tag="DINHEIRO"
-          title="Valores em reais"
-          description="Formate valores e faça parsing de texto em reais."
+          tag={t('money')}
+          title={t('brlValues')}
+          description={t('brlDescription')}
           accent="accent-gold"
           tool={brl}
+          t={t}
           control={<TextInput tool={brl} id="brl-input" placeholder="R$ 1.234,56" />}
         >
           <button onClick={() => void brl.execute(() => formatBRL(parseBRL(brl.input)))}>
-            Formatar
+            {t('format')}
           </button>
-          <button onClick={() => void brl.execute(() => parseBRL(brl.input))}>Parsear</button>
+          <button onClick={() => void brl.execute(() => parseBRL(brl.input))}>{t('parse')}</button>
         </ToolCard>
         <ToolCard
           index="09"
-          tag="ESTADOS"
-          title="Estados e regiões"
-          description="Catálogo de UFs, capitais, regiões e códigos IBGE."
+          tag={t('states')}
+          title={t('states')}
+          description={t('statesDescription')}
           accent="accent-green"
           tool={states}
+          t={t}
           control={
             <div className="input-line">
-              <TextInput tool={states} id="state-input" placeholder="SP ou São Paulo" />
+              <TextInput tool={states} id="state-input" placeholder={t('statePlaceholder')} />
               <select
                 value={stateRegion}
                 onChange={(event) => setStateRegion(event.target.value)}
-                aria-label="Região"
+                aria-label={t('region')}
               >
-                <option value="">Todas as regiões</option>
+                <option value="">{t('allRegions')}</option>
                 {BRAZILIAN_REGIONS.map((region) => (
                   <option key={region}>{region}</option>
                 ))}
@@ -510,45 +895,46 @@ function App() {
           }
         >
           <button onClick={() => void states.execute(() => getBrazilianState(states.input))}>
-            Buscar UF
+            {t('findState')}
           </button>
           <button onClick={() => void states.execute(() => isBrazilianState(states.input))}>
-            É UF?
+            {t('isState')}
           </button>
           <button
             onClick={() =>
               void states.execute(() => getBrazilianStatesByRegion(stateRegion || states.input))
             }
           >
-            Listar região
+            {t('listRegion')}
           </button>
           <button className="secondary" onClick={() => void states.execute(() => BRAZILIAN_STATES)}>
-            Catálogo
+            {t('catalog')}
           </button>
         </ToolCard>
         <ToolCard
           index="10"
-          tag="CEP / REDE"
+          tag={`${t('cepProvider')} / ${t('network')}`}
           title="CEP"
-          description="Valide, normalize, formate, consulte um CEP ou teste consultas em lote."
+          description={t('cepDescription')}
           accent="accent-lime"
           tool={cep}
+          t={t}
           control={
             <>
               <div className="input-line">
                 <TextInput
                   tool={cep}
                   id="cep-input"
-                  placeholder="01001-000 ou vários separados por vírgula"
+                  placeholder={`01001-000 ${t('multipleCep')}`}
                 />
                 <select
                   value={cepProvider}
                   onChange={(event) =>
                     setCepProvider(event.target.value as 'auto' | 'brasilapi' | 'viacep')
                   }
-                  aria-label="Provedor do CEP"
+                  aria-label={t('cepProvider')}
                 >
-                  <option value="auto">Auto · fallback</option>
+                  <option value="auto">{t('autoFallback')}</option>
                   <option value="brasilapi">BrasilAPI</option>
                   <option value="viacep">ViaCEP</option>
                 </select>
@@ -559,17 +945,21 @@ function App() {
                   checked={cepRaw}
                   onChange={(event) => setCepRaw(event.target.checked)}
                 />{' '}
-                incluir resposta raw
+                {t('includeRaw')}
               </label>
             </>
           }
-          note="Para lote, separe os CEPs por vírgula ou quebra de linha."
+          note={t('batchNote')}
         >
-          <button onClick={() => void cep.execute(() => validateCEP(cep.input))}>Validar</button>
-          <button onClick={() => void cep.execute(() => normalizeCEP(cep.input))}>
-            Normalizar
+          <button onClick={() => void cep.execute(() => validateCEP(cep.input))}>
+            {t('validate')}
           </button>
-          <button onClick={() => void cep.execute(() => formatCEP(cep.input))}>Formatar</button>
+          <button onClick={() => void cep.execute(() => normalizeCEP(cep.input))}>
+            {t('normalize')}
+          </button>
+          <button onClick={() => void cep.execute(() => formatCEP(cep.input))}>
+            {t('format')}
+          </button>
           <button
             onClick={() =>
               void cep.execute(() =>
@@ -577,7 +967,7 @@ function App() {
               )
             }
           >
-            Consultar
+            {t('lookup')}
           </button>
           <button
             className="secondary"
@@ -593,13 +983,13 @@ function App() {
               )
             }
           >
-            Consultar lote
+            {t('lookupBatch')}
           </button>
         </ToolCard>
       </section>
       <footer>
-        <span>brazilian-tools playground · React · 10 domínios</span>
-        <span>TypeScript · Vite · ESM</span>
+        <span>{t('footerLibrary')}</span>
+        <span>{t('footerStack')}</span>
       </footer>
     </main>
   );

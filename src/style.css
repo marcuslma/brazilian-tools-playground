@@ -24,6 +24,18 @@
   --lime: #c2e77f;
 }
 
+:root[data-theme='light'] {
+  color: #17171b;
+  background: #f5f4ee;
+  --bg: #f5f4ee;
+  --surface: #ffffff;
+  --surface-raised: #faf9f4;
+  --line: #d9d7ce;
+  --muted: #66656d;
+  --soft: #34333a;
+  --green: #368f50;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -74,6 +86,34 @@ pre {
 .hero {
   padding: 0 0 42px;
   border-bottom: 1px solid var(--line);
+}
+.top-controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: end;
+  gap: 10px;
+  margin-top: 18px;
+}
+.top-controls label {
+  display: grid;
+  gap: 5px;
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.top-controls select {
+  width: 130px;
+  min-height: 34px;
+  color: var(--soft);
+  background: var(--surface);
+}
+.theme-toggle {
+  min-height: 34px;
+  color: var(--green);
+  border-color: var(--line);
+  background: var(--surface);
 }
 .hero-grid {
   display: grid;
@@ -130,7 +170,7 @@ h1 em {
   padding: 12px;
   border: 1px solid var(--line);
   border-radius: 2px;
-  background: #101013;
+  background: color-mix(in srgb, var(--surface) 72%, var(--bg));
 }
 .output-heading {
   display: flex;
@@ -243,8 +283,8 @@ select {
   border: 1px solid var(--line);
   border-radius: 2px;
   outline: none;
-  color: #f5f5f0;
-  background: #101013;
+  color: var(--soft);
+  background: var(--surface);
 }
 input:focus,
 select:focus {

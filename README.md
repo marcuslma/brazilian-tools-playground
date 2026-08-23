@@ -1,27 +1,27 @@
 # brazilian-tools-playground
 
-Playground local em Vite para testar a biblioteca `brazilian-tools` no navegador.
+A Vite playground for testing the `brazilian-tools` library in the browser.
 
-A aplicação consome a biblioteca diretamente do GitHub, sem depender de publicação no npm:
+The application consumes the library directly from GitHub without requiring an npm publication:
 
 ```json
 "brazilian-tools": "github:marcuslma/brazilian-tools#main"
 ```
 
-## Desenvolvimento
+## Development
 
 ```bash
 npm install
 npm run dev
 ```
 
-Acesse `http://127.0.0.1:5173`.
+Open `http://127.0.0.1:5173`.
 
-## Verificações
+## Checks
 
 ```bash
 npm run format:check
 npm run build
 ```
 
-O playground é uma aplicação React + Vite em ESM e cobre interativamente os 10 domínios públicos da biblioteca: CPF, CNPJ, RG, telefone, PIS, CNH, placas, valores em reais, estados/regiões e CEP. Cada cartão mantém seu próprio input, status e output, sem painel global. Além dos geradores existentes, o telefone permite gerar celulares e o cartão de placas permite gerar modelos antigo e Mercosul. Toda geração também atualiza automaticamente o input do cartão correspondente. O layout usa duas colunas em telas amplas e uma coluna até 900px para preservar a legibilidade dos controles e outputs.
+The playground is a React + Vite ESM application that interactively covers the library’s 10 public domains: CPF, CNPJ, RG, phone numbers, PIS, CNH, license plates, BRL values, states/regions, and CEP. Each card keeps its own input, status, and output without a global panel. The default interface is in Brazilian Portuguese and can be switched to English or Spanish. A light/dark theme toggle is also available, with both preferences persisted locally. In addition to the existing generators, the phone card can generate mobile numbers and the license plate card can generate old and Mercosur models. Every generation also updates the corresponding card input automatically. The layout uses two columns on wide screens and one column below 900px to preserve control and output readability.
