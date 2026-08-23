@@ -31,13 +31,12 @@ export function StatesCard() {
   return (
     <ToolCard
       index="09"
-      accent="green"
       tag={card.tag}
       title={card.title}
       description={card.description}
       tool={tool}
       control={
-        <div className="grid grid-cols-[1fr_7rem] gap-2">
+        <div className="grid grid-cols-[minmax(0,1fr)_max-content] gap-2">
           <TextInput tool={tool} id="state-input" placeholder={card.placeholder} />
           <SelectField
             value={region}

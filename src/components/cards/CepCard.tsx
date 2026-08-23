@@ -30,7 +30,6 @@ export function CepCard() {
   return (
     <ToolCard
       index="10"
-      accent="lime"
       tag={card.tag}
       title={card.title}
       description={card.description}
@@ -38,7 +37,7 @@ export function CepCard() {
       note={t('notes.batch')}
       control={
         <>
-          <div className="grid grid-cols-[1fr_7rem] gap-2">
+          <div className="grid grid-cols-[minmax(0,1fr)_max-content] gap-2">
             <TextInput tool={tool} id="cep-input" placeholder={card.placeholder} />
             <SelectField
               value={provider}

@@ -28,7 +28,6 @@ export function PhoneCard() {
   return (
     <ToolCard
       index="04"
-      accent="violet"
       tag={card.tag}
       title={card.title}
       description={card.description}

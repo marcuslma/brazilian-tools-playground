@@ -18,7 +18,6 @@ export function BrlCard() {
   return (
     <ToolCard
       index="08"
-      accent="gold"
       tag={card.tag}
       title={card.title}
       description={card.description}

@@ -21,8 +21,12 @@ const hero = {
   status: 'STATUS',
   package: 'REACT · LOCAL PACKAGE',
   language: 'Language',
+  palette: 'Palette',
+  theme: 'Theme',
   light: 'Light',
   dark: 'Dark',
+  system: 'System',
+  palettes: { green: 'Green', yellow: 'Yellow', blue: 'Blue' },
 };
 
 const cards = {
@@ -154,8 +158,12 @@ export const resources = {
         status: 'STATUS',
         package: 'REACT · PACOTE LOCAL',
         language: 'Idioma',
+        palette: 'Paleta',
+        theme: 'Tema',
         light: 'Claro',
         dark: 'Escuro',
+        system: 'Sistema',
+        palettes: { green: 'Verde', yellow: 'Amarela', blue: 'Azul' },
       },
       cards: {
         cpf: {
@@ -279,8 +287,12 @@ export const resources = {
         status: 'ESTADO',
         package: 'REACT · PAQUETE LOCAL',
         language: 'Idioma',
+        palette: 'Paleta',
+        theme: 'Tema',
         light: 'Claro',
         dark: 'Oscuro',
+        system: 'Sistema',
+        palettes: { green: 'Verde', yellow: 'Amarilla', blue: 'Azul' },
       },
       cards: {
         cpf: {

@@ -1,7 +1,7 @@
 export type ResultTone = 'neutral' | 'success' | 'error';
 export type Action = () => unknown | Promise<unknown>;
-export type Accent =
-  'yellow' | 'pink' | 'cyan' | 'violet' | 'green' | 'orange' | 'blue' | 'red' | 'gold' | 'lime';
+export type Palette = 'green' | 'yellow' | 'blue';
+export type Theme = 'light' | 'dark' | 'system';
 
 export type ToolState = {
   input: string;

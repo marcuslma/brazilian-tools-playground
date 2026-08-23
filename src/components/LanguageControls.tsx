@@ -1,12 +1,13 @@
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
+import type { Palette, Theme } from '../types';
 import { SelectField, type SelectOption } from './SelectField';
-
-type Theme = 'dark' | 'light';
 
 type LanguageControlsProps = {
   theme: Theme;
-  onToggleTheme: () => void;
+  palette: Palette;
+  onPaletteChange: (palette: Palette) => void;
+  onThemeChange: (theme: Theme) => void;
 };
 
 const languages: readonly SelectOption<'pt-BR' | 'en' | 'es'>[] = [
@@ -15,7 +16,12 @@ const languages: readonly SelectOption<'pt-BR' | 'en' | 'es'>[] = [
   { value: 'es', label: 'Español', icon: '🇪🇸' },
 ];
 
-export function LanguageControls({ theme, onToggleTheme }: LanguageControlsProps) {
+export function LanguageControls({
+  theme,
+  palette,
+  onPaletteChange,
+  onThemeChange,
+}: LanguageControlsProps) {
   const { t } = useTranslation();
   const language =
     i18n.resolvedLanguage === 'pt-BR' ||
@@ -23,40 +29,46 @@ export function LanguageControls({ theme, onToggleTheme }: LanguageControlsProps
     i18n.resolvedLanguage === 'es'
       ? i18n.resolvedLanguage
       : 'pt-BR';
+  const palettes: readonly SelectOption<Palette>[] = [
+    { value: 'green', label: t('hero.palettes.green'), icon: '🟢' },
+    { value: 'yellow', label: t('hero.palettes.yellow'), icon: '🟡' },
+    { value: 'blue', label: t('hero.palettes.blue'), icon: '🔵' },
+  ];
+  const themes: readonly SelectOption<Theme>[] = [
+    { value: 'light', label: t('hero.light'), icon: '☀️' },
+    { value: 'dark', label: t('hero.dark'), icon: '🌙' },
+    { value: 'system', label: t('hero.system'), icon: '🖥️' },
+  ];
 
   return (
     <div className="flex flex-wrap items-end justify-end gap-2">
-      <label className="grid gap-1 font-mono text-[10px] uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+      <label className="grid gap-1 font-mono text-[10px] uppercase tracking-wider text-brand-muted">
+        <span>{t('hero.palette')}</span>
+        <SelectField
+          value={palette}
+          onChange={onPaletteChange}
+          options={palettes}
+          ariaLabel={t('hero.palette')}
+        />
+      </label>
+      <label className="grid gap-1 font-mono text-[10px] uppercase tracking-wider text-brand-muted">
         <span>{t('hero.language')}</span>
         <SelectField
           value={language}
           onChange={(value) => void i18n.changeLanguage(value)}
           options={languages}
           ariaLabel={t('hero.language')}
-          className="w-32"
         />
       </label>
-      <button
-        type="button"
-        onClick={onToggleTheme}
-        className="inline-flex min-h-10 items-center gap-1.5 rounded-md border border-brazil-yellow bg-white px-3 text-xs font-semibold text-brazil-blue transition hover:bg-brazil-yellow/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brazil-green dark:border-brazil-yellow dark:bg-brazil-blue dark:text-brazil-yellow dark:hover:bg-brazil-blue-dark"
-      >
-        {theme === 'dark' ? (
-          <>
-            <span className="text-lg leading-none" aria-hidden="true">
-              ☀️
-            </span>
-            {t('hero.light')}
-          </>
-        ) : (
-          <>
-            <span className="text-lg leading-none" aria-hidden="true">
-              🌙
-            </span>
-            {t('hero.dark')}
-          </>
-        )}
-      </button>
+      <label className="grid gap-1 font-mono text-[10px] uppercase tracking-wider text-brand-muted">
+        <span>{t('hero.theme')}</span>
+        <SelectField
+          value={theme}
+          onChange={onThemeChange}
+          options={themes}
+          ariaLabel={t('hero.theme')}
+        />
+      </label>
     </div>
   );
 }

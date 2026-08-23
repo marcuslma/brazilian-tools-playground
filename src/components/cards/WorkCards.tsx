@@ -27,7 +27,6 @@ export function PisCard() {
   return (
     <ToolCard
       index="05"
-      accent="orange"
       tag={card.tag}
       title={card.title}
       description={card.description}
@@ -66,7 +65,6 @@ export function CnhCard() {
   return (
     <ToolCard
       index="06"
-      accent="blue"
       tag={card.tag}
       title={card.title}
       description={card.description}

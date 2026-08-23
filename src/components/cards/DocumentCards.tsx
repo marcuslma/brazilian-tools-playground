@@ -35,7 +35,6 @@ export function CpfCard() {
   return (
     <ToolCard
       index="01"
-      accent="yellow"
       tag={card.tag}
       title={card.title}
       description={card.description}
@@ -79,13 +78,12 @@ export function CnpjCard() {
   return (
     <ToolCard
       index="02"
-      accent="pink"
       tag={card.tag}
       title={card.title}
       description={card.description}
       tool={tool}
       control={
-        <div className="grid grid-cols-[1fr_7rem] gap-2">
+        <div className="grid grid-cols-[minmax(0,1fr)_max-content] gap-2">
           <TextInput tool={tool} id="cnpj-input" placeholder={card.placeholder} />
           <SelectField
             value={kind}
@@ -135,13 +133,12 @@ export function RgCard() {
   return (
     <ToolCard
       index="03"
-      accent="cyan"
       tag={card.tag}
       title={card.title}
       description={card.description}
       tool={tool}
       control={
-        <div className="grid grid-cols-[1fr_7rem] gap-2">
+        <div className="grid grid-cols-[minmax(0,1fr)_max-content] gap-2">
           <TextInput tool={tool} id="rg-input" placeholder={card.placeholder} />
           <SelectField
             value={state}

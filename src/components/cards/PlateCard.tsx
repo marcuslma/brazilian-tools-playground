@@ -24,7 +24,6 @@ export function PlateCard() {
   return (
     <ToolCard
       index="07"
-      accent="red"
       tag={card.tag}
       title={card.title}
       description={card.description}
