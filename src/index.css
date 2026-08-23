@@ -1,0 +1,13 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, monospace;
+  --color-brazil-green: #009c3b;
+  --color-brazil-green-dark: #006b2d;
+  --color-brazil-yellow: #ffdf00;
+  --color-brazil-blue: #002776;
+  --color-brazil-blue-dark: #001b52;
+}
