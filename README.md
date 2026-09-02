@@ -2,10 +2,10 @@
 
 A Vite playground for testing the `brazilian-tools` library in the browser.
 
-The application consumes the library directly from GitHub without requiring an npm publication:
+The application consumes the published npm package:
 
 ```json
-"brazilian-tools": "github:marcuslma/brazilian-tools#main"
+"brazilian-tools": "^0.1.0"
 ```
 
 ## Development
