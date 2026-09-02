@@ -19,7 +19,7 @@ const hero = {
   description:
     'A local React lab for exploring every public library domain: validation, normalization, formatting, generation, parsing, catalog browsing, and CEP lookups.',
   status: 'STATUS',
-  package: 'REACT · LOCAL PACKAGE',
+  package: 'REACT · PUBLISHED PACKAGE',
   language: 'Language',
   palette: 'Palette',
   theme: 'Theme',
@@ -156,7 +156,7 @@ export const resources = {
         description:
           'Um laboratório local em React para explorar todos os domínios públicos da biblioteca: validação, normalização, formatação, geração, parsing, catálogo e consultas de CEP.',
         status: 'STATUS',
-        package: 'REACT · PACOTE LOCAL',
+        package: 'REACT · PACOTE PUBLICADO',
         language: 'Idioma',
         palette: 'Paleta',
         theme: 'Tema',
@@ -285,7 +285,7 @@ export const resources = {
         description:
           'Un laboratorio local en React para explorar todos los dominios públicos de la biblioteca: validación, normalización, formato, generación, análisis, catálogo y consultas de CEP.',
         status: 'ESTADO',
-        package: 'REACT · PAQUETE LOCAL',
+        package: 'REACT · PAQUETE PUBLICADO',
         language: 'Idioma',
         palette: 'Paleta',
         theme: 'Tema',

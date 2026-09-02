@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import i18n from './i18n';
 import { LanguageControls } from './components/LanguageControls';
 import { BrlCard } from './components/cards/BrlCard';
@@ -93,7 +95,7 @@ export default function App() {
                 {t('hero.package')}
               </strong>
               <code className="mt-2 block font-mono text-[11px] text-brand-muted">
-                github:marcuslma/brazilian-tools#main
+                npm:brazilian-tools@0.1.0
               </code>
             </div>
           </div>
@@ -117,6 +119,8 @@ export default function App() {
           <span>{t('footer.stack')}</span>
         </footer>
       </main>
+      <Analytics />
+      <SpeedInsights />
     </div>
   );
 }
