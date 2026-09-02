@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { Monitor, Moon, Sun } from 'lucide-react';
 import i18n from '../i18n';
 import type { Palette, Theme } from '../types';
 import { SelectField, type SelectOption } from './SelectField';
@@ -35,9 +36,21 @@ export function LanguageControls({
     { value: 'blue', label: t('hero.palettes.blue'), icon: '🔵' },
   ];
   const themes: readonly SelectOption<Theme>[] = [
-    { value: 'light', label: t('hero.light'), icon: '☀️' },
-    { value: 'dark', label: t('hero.dark'), icon: '🌙' },
-    { value: 'system', label: t('hero.system'), icon: '🖥️' },
+    {
+      value: 'light',
+      label: t('hero.light'),
+      icon: <Sun aria-hidden="true" className="size-3.5" />,
+    },
+    {
+      value: 'dark',
+      label: t('hero.dark'),
+      icon: <Moon aria-hidden="true" className="size-3.5" />,
+    },
+    {
+      value: 'system',
+      label: t('hero.system'),
+      icon: <Monitor aria-hidden="true" className="size-3.5" />,
+    },
   ];
 
   return (

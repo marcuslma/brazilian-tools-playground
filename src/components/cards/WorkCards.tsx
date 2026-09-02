@@ -33,16 +33,23 @@ export function PisCard() {
       tool={tool}
       control={<TextInput tool={tool} id="pis-input" placeholder={card.placeholder} />}
     >
-      <ActionButton onClick={() => void tool.execute(() => validatePIS(tool.input))}>
+      <ActionButton
+        icon="validate"
+        onClick={() => void tool.execute(() => validatePIS(tool.input))}
+      >
         {t('common.validate')}
       </ActionButton>
-      <ActionButton onClick={() => void tool.execute(() => normalizePIS(tool.input))}>
+      <ActionButton
+        icon="normalize"
+        onClick={() => void tool.execute(() => normalizePIS(tool.input))}
+      >
         {t('common.normalize')}
       </ActionButton>
-      <ActionButton onClick={() => void tool.execute(() => formatPIS(tool.input))}>
+      <ActionButton icon="format" onClick={() => void tool.execute(() => formatPIS(tool.input))}>
         {t('common.format')}
       </ActionButton>
       <ActionButton
+        icon="generate"
         secondary
         onClick={() => void tool.execute(() => generatePIS({ formatted: true }), true)}
       >
@@ -71,16 +78,23 @@ export function CnhCard() {
       tool={tool}
       control={<TextInput tool={tool} id="cnh-input" placeholder={card.placeholder} />}
     >
-      <ActionButton onClick={() => void tool.execute(() => validateCNH(tool.input))}>
+      <ActionButton
+        icon="validate"
+        onClick={() => void tool.execute(() => validateCNH(tool.input))}
+      >
         {t('common.validate')}
       </ActionButton>
-      <ActionButton onClick={() => void tool.execute(() => normalizeCNH(tool.input))}>
+      <ActionButton
+        icon="normalize"
+        onClick={() => void tool.execute(() => normalizeCNH(tool.input))}
+      >
         {t('common.normalize')}
       </ActionButton>
-      <ActionButton onClick={() => void tool.execute(() => formatCNH(tool.input))}>
+      <ActionButton icon="format" onClick={() => void tool.execute(() => formatCNH(tool.input))}>
         {t('common.format')}
       </ActionButton>
       <ActionButton
+        icon="generate"
         secondary
         onClick={() => void tool.execute(() => generateCNH({ formatted: true }), true)}
       >

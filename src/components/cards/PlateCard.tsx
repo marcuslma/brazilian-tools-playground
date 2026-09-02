@@ -30,22 +30,33 @@ export function PlateCard() {
       tool={tool}
       control={<TextInput tool={tool} id="plate-input" placeholder={card.placeholder} />}
     >
-      <ActionButton onClick={() => void tool.execute(() => validateLicensePlate(tool.input))}>
+      <ActionButton
+        icon="validate"
+        onClick={() => void tool.execute(() => validateLicensePlate(tool.input))}
+      >
         {t('common.validate')}
       </ActionButton>
-      <ActionButton onClick={() => void tool.execute(() => normalizeLicensePlate(tool.input))}>
+      <ActionButton
+        icon="normalize"
+        onClick={() => void tool.execute(() => normalizeLicensePlate(tool.input))}
+      >
         {t('common.normalize')}
       </ActionButton>
-      <ActionButton onClick={() => void tool.execute(() => formatLicensePlate(tool.input))}>
+      <ActionButton
+        icon="format"
+        onClick={() => void tool.execute(() => formatLicensePlate(tool.input))}
+      >
         {t('common.format')}
       </ActionButton>
       <ActionButton
+        icon="parse"
         secondary
         onClick={() => void tool.execute(() => parseLicensePlate(tool.input))}
       >
         {t('common.parse')}
       </ActionButton>
       <ActionButton
+        icon="generateVehicle"
         secondary
         onClick={() =>
           void tool.execute(() => generateLicensePlate({ kind: 'old', formatted: true }), true)
@@ -54,6 +65,7 @@ export function PlateCard() {
         {t('options.generateOld')}
       </ActionButton>
       <ActionButton
+        icon="generateVehicle"
         secondary
         onClick={() => void tool.execute(() => generateLicensePlate({ kind: 'mercosul' }), true)}
       >

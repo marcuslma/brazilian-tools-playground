@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { MapPin } from 'lucide-react';
 import {
   formatCNPJ,
   formatCPF,
@@ -41,16 +42,23 @@ export function CpfCard() {
       tool={tool}
       control={<TextInput tool={tool} id="cpf-input" placeholder={card.placeholder} />}
     >
-      <ActionButton onClick={() => void tool.execute(() => validateCPF(tool.input))}>
+      <ActionButton
+        icon="validate"
+        onClick={() => void tool.execute(() => validateCPF(tool.input))}
+      >
         {t('common.validate')}
       </ActionButton>
-      <ActionButton onClick={() => void tool.execute(() => normalizeCPF(tool.input))}>
+      <ActionButton
+        icon="normalize"
+        onClick={() => void tool.execute(() => normalizeCPF(tool.input))}
+      >
         {t('common.normalize')}
       </ActionButton>
-      <ActionButton onClick={() => void tool.execute(() => formatCPF(tool.input))}>
+      <ActionButton icon="format" onClick={() => void tool.execute(() => formatCPF(tool.input))}>
         {t('common.format')}
       </ActionButton>
       <ActionButton
+        icon="generate"
         secondary
         onClick={() => void tool.execute(() => generateCPF({ formatted: true }), true)}
       >
@@ -94,16 +102,23 @@ export function CnpjCard() {
         </div>
       }
     >
-      <ActionButton onClick={() => void tool.execute(() => validateCNPJ(tool.input))}>
+      <ActionButton
+        icon="validate"
+        onClick={() => void tool.execute(() => validateCNPJ(tool.input))}
+      >
         {t('common.validate')}
       </ActionButton>
-      <ActionButton onClick={() => void tool.execute(() => normalizeCNPJ(tool.input))}>
+      <ActionButton
+        icon="normalize"
+        onClick={() => void tool.execute(() => normalizeCNPJ(tool.input))}
+      >
         {t('common.normalize')}
       </ActionButton>
-      <ActionButton onClick={() => void tool.execute(() => formatCNPJ(tool.input))}>
+      <ActionButton icon="format" onClick={() => void tool.execute(() => formatCNPJ(tool.input))}>
         {t('common.format')}
       </ActionButton>
       <ActionButton
+        icon="generate"
         secondary
         onClick={() => void tool.execute(() => generateCNPJ({ kind, formatted: true }), true)}
       >
@@ -150,19 +165,25 @@ export function RgCard() {
       }
     >
       <ActionButton
+        icon="validate"
         onClick={() => void tool.execute(() => validateRG(tool.input, state ? { state } : {}))}
       >
         {t('common.validate')}
       </ActionButton>
       <ActionButton
+        icon="normalize"
         onClick={() => void tool.execute(() => normalizeRG(tool.input, { state: 'SP' }))}
       >
         {t('common.normalize')}
       </ActionButton>
-      <ActionButton onClick={() => void tool.execute(() => formatRG(tool.input, { state: 'SP' }))}>
+      <ActionButton
+        icon="format"
+        onClick={() => void tool.execute(() => formatRG(tool.input, { state: 'SP' }))}
+      >
         {t('common.format')}
       </ActionButton>
       <ActionButton
+        icon="generate"
         secondary
         onClick={() =>
           void tool.execute(() => {
@@ -173,13 +194,18 @@ export function RgCard() {
       >
         {t('common.generate')}
       </ActionButton>
-      <ActionButton secondary onClick={() => void tool.execute(() => SUPPORTED_RG_STATES)}>
+      <ActionButton
+        icon="list"
+        secondary
+        onClick={() => void tool.execute(() => SUPPORTED_RG_STATES)}
+      >
         {t('options.supportedStates')}
       </ActionButton>
       <SwitchField
         checked={includeState}
         onChange={setIncludeState}
         label={t('fields.includeState')}
+        icon={MapPin}
       />
     </ToolCard>
   );

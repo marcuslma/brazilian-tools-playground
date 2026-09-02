@@ -1,12 +1,14 @@
 import { Field, Label, Switch } from '@headlessui/react';
+import type { LucideIcon } from 'lucide-react';
 
 type SwitchFieldProps = {
   checked: boolean;
   onChange: (checked: boolean) => void;
   label: string;
+  icon: LucideIcon;
 };
 
-export function SwitchField({ checked, onChange, label }: SwitchFieldProps) {
+export function SwitchField({ checked, onChange, label, icon: Icon }: SwitchFieldProps) {
   return (
     <Field
       as="label"
@@ -21,10 +23,12 @@ export function SwitchField({ checked, onChange, label }: SwitchFieldProps) {
       >
         <span
           aria-hidden="true"
-          className={`pointer-events-none block size-4 rounded-full bg-brand-ink shadow-sm transition ${
+          className={`pointer-events-none flex size-4 items-center justify-center rounded-full bg-brand-ink shadow-sm transition ${
             checked ? 'translate-x-4' : 'translate-x-0'
           }`}
-        />
+        >
+          <Icon aria-hidden="true" className="size-2.5 text-brand-control" strokeWidth={2.5} />
+        </span>
       </Switch>
       <Label className="font-mono text-[10px] uppercase tracking-wide">{label}</Label>
     </Field>

@@ -1,9 +1,11 @@
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react';
+import { ChevronDown } from 'lucide-react';
+import type { ReactNode } from 'react';
 
 export type SelectOption<T extends string> = {
   value: T;
   label: string;
-  icon?: string;
+  icon?: ReactNode;
 };
 
 type SelectFieldProps<T extends string> = {
@@ -38,9 +40,7 @@ export function SelectField<T extends string>({
             )}
             <span>{selected?.label}</span>
           </span>
-          <span aria-hidden="true" className="text-brand-muted">
-            ⌄
-          </span>
+          <ChevronDown aria-hidden="true" className="size-3.5 shrink-0 text-brand-muted" />
         </ListboxButton>
         <ListboxOptions className="absolute left-0 top-[calc(100%+0.35rem)] z-30 max-h-60 w-max min-w-full overflow-auto rounded-md border border-brand-border bg-brand-card p-1 shadow-xl outline-none">
           {options.map((option) => (

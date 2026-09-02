@@ -47,18 +47,29 @@ export function StatesCard() {
         </div>
       }
     >
-      <ActionButton onClick={() => void tool.execute(() => getBrazilianState(tool.input))}>
+      <ActionButton
+        icon="find"
+        onClick={() => void tool.execute(() => getBrazilianState(tool.input))}
+      >
         {t('options.findState')}
       </ActionButton>
-      <ActionButton onClick={() => void tool.execute(() => isBrazilianState(tool.input))}>
+      <ActionButton
+        icon="question"
+        onClick={() => void tool.execute(() => isBrazilianState(tool.input))}
+      >
         {t('options.isState')}
       </ActionButton>
       <ActionButton
+        icon="map"
         onClick={() => void tool.execute(() => getBrazilianStatesByRegion(region || tool.input))}
       >
         {t('options.listRegion')}
       </ActionButton>
-      <ActionButton secondary onClick={() => void tool.execute(() => BRAZILIAN_STATES)}>
+      <ActionButton
+        icon="catalog"
+        secondary
+        onClick={() => void tool.execute(() => BRAZILIAN_STATES)}
+      >
         {t('options.catalog')}
       </ActionButton>
     </ToolCard>

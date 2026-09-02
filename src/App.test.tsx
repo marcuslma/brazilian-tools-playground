@@ -143,4 +143,16 @@ describe('App', () => {
     expect(container.textContent).toContain('REACT · PACOTE PUBLICADO');
     expect(container.textContent).toContain('npm:brazilian-tools@0.1.0');
   });
+
+  it('renders a decorative icon in every interactive button and the selected theme control', async () => {
+    await act(async () => root?.render(<App />));
+
+    const buttons = [...container.querySelectorAll('button')];
+
+    expect(buttons.length).toBeGreaterThan(0);
+    buttons.forEach((button) => {
+      expect(button.querySelector('svg[aria-hidden="true"]')).not.toBeNull();
+    });
+    expect(container.querySelector('[aria-label="Tema"] svg.lucide-moon')).not.toBeNull();
+  });
 });

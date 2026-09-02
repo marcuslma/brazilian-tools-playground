@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Braces } from 'lucide-react';
 import { formatCEP, lookupCEP, lookupCEPs, normalizeCEP, validateCEP } from 'brazilian-tools';
 import { useToolState } from '../../hooks/useToolState';
 import { ActionButton } from '../ActionButton';
@@ -46,25 +47,38 @@ export function CepCard() {
               ariaLabel={t('fields.cepProvider')}
             />
           </div>
-          <SwitchField checked={includeRaw} onChange={setIncludeRaw} label={t('fields.raw')} />
+          <SwitchField
+            checked={includeRaw}
+            onChange={setIncludeRaw}
+            label={t('fields.raw')}
+            icon={Braces}
+          />
         </>
       }
     >
-      <ActionButton onClick={() => void tool.execute(() => validateCEP(tool.input))}>
+      <ActionButton
+        icon="validate"
+        onClick={() => void tool.execute(() => validateCEP(tool.input))}
+      >
         {t('common.validate')}
       </ActionButton>
-      <ActionButton onClick={() => void tool.execute(() => normalizeCEP(tool.input))}>
+      <ActionButton
+        icon="normalize"
+        onClick={() => void tool.execute(() => normalizeCEP(tool.input))}
+      >
         {t('common.normalize')}
       </ActionButton>
-      <ActionButton onClick={() => void tool.execute(() => formatCEP(tool.input))}>
+      <ActionButton icon="format" onClick={() => void tool.execute(() => formatCEP(tool.input))}>
         {t('common.format')}
       </ActionButton>
       <ActionButton
+        icon="lookup"
         onClick={() => void tool.execute(() => lookupCEP(tool.input, { provider, includeRaw }))}
       >
         {t('options.lookup')}
       </ActionButton>
       <ActionButton
+        icon="lookupBatch"
         secondary
         onClick={() =>
           void tool.execute(() =>

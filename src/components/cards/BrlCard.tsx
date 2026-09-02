@@ -24,10 +24,13 @@ export function BrlCard() {
       tool={tool}
       control={<TextInput tool={tool} id="brl-input" placeholder={card.placeholder} />}
     >
-      <ActionButton onClick={() => void tool.execute(() => formatBRL(parseBRL(tool.input)))}>
+      <ActionButton
+        icon="format"
+        onClick={() => void tool.execute(() => formatBRL(parseBRL(tool.input)))}
+      >
         {t('common.format')}
       </ActionButton>
-      <ActionButton onClick={() => void tool.execute(() => parseBRL(tool.input))}>
+      <ActionButton icon="parse" onClick={() => void tool.execute(() => parseBRL(tool.input))}>
         {t('common.parse')}
       </ActionButton>
     </ToolCard>

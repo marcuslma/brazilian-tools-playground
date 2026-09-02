@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Globe2 } from 'lucide-react';
 import {
   formatPhoneBR,
   generatePhoneBR,
@@ -39,28 +40,45 @@ export function PhoneCard() {
             checked={international}
             onChange={setInternational}
             label={t('fields.international')}
+            icon={Globe2}
           />
         </>
       }
     >
-      <ActionButton onClick={() => void tool.execute(() => validatePhoneBR(tool.input))}>
+      <ActionButton
+        icon="validate"
+        onClick={() => void tool.execute(() => validatePhoneBR(tool.input))}
+      >
         {t('common.validate')}
       </ActionButton>
-      <ActionButton onClick={() => void tool.execute(() => normalizePhoneBR(tool.input))}>
+      <ActionButton
+        icon="normalize"
+        onClick={() => void tool.execute(() => normalizePhoneBR(tool.input))}
+      >
         {t('common.normalize')}
       </ActionButton>
       <ActionButton
+        icon="format"
         onClick={() => void tool.execute(() => formatPhoneBR(tool.input, { international }))}
       >
         {t('common.format')}
       </ActionButton>
-      <ActionButton secondary onClick={() => void tool.execute(() => parsePhoneBR(tool.input))}>
+      <ActionButton
+        icon="parse"
+        secondary
+        onClick={() => void tool.execute(() => parsePhoneBR(tool.input))}
+      >
         {t('common.parse')}
       </ActionButton>
-      <ActionButton secondary onClick={() => void tool.execute(() => SUPPORTED_PHONE_DDDS)}>
+      <ActionButton
+        icon="list"
+        secondary
+        onClick={() => void tool.execute(() => SUPPORTED_PHONE_DDDS)}
+      >
         {t('options.supportedDDDs')}
       </ActionButton>
       <ActionButton
+        icon="generateMobile"
         secondary
         onClick={() =>
           void tool.execute(
