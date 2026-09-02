@@ -14,10 +14,10 @@ const common = {
 };
 
 const hero = {
-  allFeatures: 'All features,',
-  noGuesswork: 'no guesswork.',
+  allFeatures: 'Brazilian data,',
+  noGuesswork: 'made simple.',
   description:
-    'A local React lab for exploring every public library domain: validation, normalization, formatting, generation, parsing, catalog browsing, and CEP lookups.',
+    'Utilities to validate, format, generate, and look up Brazilian data, from documents and phone numbers to postal codes, states, and BRL values.',
   status: 'STATUS',
   package: 'REACT · PUBLISHED PACKAGE',
   language: 'Language',
@@ -151,10 +151,10 @@ export const resources = {
         ok: 'OK',
       },
       hero: {
-        allFeatures: 'Todos os recursos,',
-        noGuesswork: 'sem achismo.',
+        allFeatures: 'Dados brasileiros,',
+        noGuesswork: 'sem complicação.',
         description:
-          'Um laboratório local em React para explorar todos os domínios públicos da biblioteca: validação, normalização, formatação, geração, parsing, catálogo e consultas de CEP.',
+          'Utilitários para validar, formatar, gerar e consultar dados brasileiros, de documentos e telefones a CEPs, estados e valores em reais.',
         status: 'STATUS',
         package: 'REACT · PACOTE PUBLICADO',
         language: 'Idioma',
@@ -280,10 +280,10 @@ export const resources = {
         ok: 'OK',
       },
       hero: {
-        allFeatures: 'Todas las funciones,',
-        noGuesswork: 'sin adivinanzas.',
+        allFeatures: 'Datos brasileños,',
+        noGuesswork: 'sin complicaciones.',
         description:
-          'Un laboratorio local en React para explorar todos los dominios públicos de la biblioteca: validación, normalización, formato, generación, análisis, catálogo y consultas de CEP.',
+          'Utilidades para validar, formatear, generar y consultar datos brasileños, desde documentos y teléfonos hasta códigos postales, estados y valores en reales.',
         status: 'ESTADO',
         package: 'REACT · PAQUETE PUBLICADO',
         language: 'Idioma',
